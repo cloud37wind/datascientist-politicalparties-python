@@ -20,7 +20,6 @@ class DataLoader:
 
     def remove_duplicates(self, df: pd.DataFrame) -> pd.DataFrame:
         """Write a function to remove duplicates in a dataframe"""
-        ##### YOUR CODE GOES HERE #####
         return df.drop_duplicates()
 
     def remove_nonfeature_cols(
@@ -28,7 +27,6 @@ class DataLoader:
     ) -> pd.DataFrame:
         """Write a function to remove certain features cols and set certain cols as indices
         in a dataframe"""
-        ##### YOUR CODE GOES HERE #####
         df_cols_removed = df.drop(non_features, axis=1)
         return df_cols_removed.set_index(index)
 
@@ -36,20 +34,17 @@ class DataLoader:
         """Write a function to handle NaN values in a dataframe, 
         drop all NaN columns,
         use mean values of each column to fill NaN values."""
-        ##### YOUR CODE GOES HERE #####
         mean_val = df.mean()
         return df.dropna(how='all', axis=1).fillna(mean_val)
     
     def scale_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """Write a function to normalise values in a dataframe. Use StandardScaler."""
-        ##### YOUR CODE GOES HERE #####
         scaler = StandardScaler()
         scaled_val = scaler.fit_transform(df)
         return pd.DataFrame(scaled_val, columns=df.columns, index=df.index)
 
     def preprocess_data(self):
         """Write a function to combine all pre-processing steps for the dataset"""
-        ##### YOUR CODE GOES HERE #####
         df_deduplicated = self.remove_duplicates(self.party_data)
         df_non_removed = self.remove_nonfeature_cols(df_deduplicated, self.non_features, self.index)
         df_nan_handled = self.handle_NaN_values(df_non_removed)
