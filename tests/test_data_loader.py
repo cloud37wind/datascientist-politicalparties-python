@@ -29,7 +29,7 @@ def test_preprocess_data(mocker, mock_df: pd.DataFrame):
     mocker.patch.object(data_loader, "party_data", mock_df)
     mocker.patch.object(data_loader, "non_features", ["non_feature"])
     mocker.patch.object(data_loader, "index", "id")
-    data_loader.preprocess_data()
+    preprocessed_data = data_loader.preprocess_data()
     expected_df = pd.DataFrame(
         data={
             "col1": [-1.225, 0, 1.225],
@@ -39,4 +39,4 @@ def test_preprocess_data(mocker, mock_df: pd.DataFrame):
         index=[0, 1, 2],
     )
     expected_df.index.name = "id"
-    assert_frame_equal(data_loader.party_data, expected_df, check_less_precise=3)
+    assert_frame_equal(preprocessed_data, expected_df, rtol=1.0e-3)
